@@ -259,6 +259,7 @@ type propTypes = {
   hideOrigin?: Boolean;
   textShiftX?: number;
   textShiftY?: number;
+  yAxisLabelTextsIgnoreOffset?: boolean;
   yAxisLabelTexts?: Array<string>;
   xAxisLabelTexts?: Array<string>;
   xAxisLabelTextStyle?: any;
@@ -1836,6 +1837,7 @@ export const LineChart = (props: propTypes) => {
   const showFractionalValues = props.showFractionalValues || false;
   const yAxisLabelWidth = props.yAxisLabelWidth || 35;
   const hideYAxisText = props.hideYAxisText || false;
+  const yAxisLabelTextsIgnoreOffset = props.yAxisLabelTextsIgnoreOffset || false;
 
   const backgroundColor = props.backgroundColor || 'transparent';
 
@@ -3388,6 +3390,7 @@ export const LineChart = (props: propTypes) => {
     yAxisLabelPrefix,
     yAxisLabelSuffix,
     yAxisTextStyle,
+    yAxisLabelTextsIgnoreOffset,
 
     containerHeight,
     maxValue,

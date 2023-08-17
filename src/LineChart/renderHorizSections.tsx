@@ -61,6 +61,7 @@ export const renderHorizSections = props => {
     yAxisLabelTexts,
     yAxisOffset,
     hideAxesAndRules,
+    yAxisLabelTextsIgnoreOffset
   } = props;
 
   const getLabel = (val, index) => {
@@ -70,7 +71,7 @@ export const renderHorizSections = props => {
       (yAxisLabelTexts && yAxisLabelTexts[index] !== undefined)
     ) {
       if (val) {
-        label = yAxisOffset ? (Number(val) + yAxisOffset).toString() : val;
+        label = (yAxisOffset && yAxisLabelTexts && yAxisLabelTexts[index] !== undefined && !yAxisLabelTextsIgnoreOffset) || (yAxisOffset && !yAxisLabelTexts) ? (Number(val) + yAxisOffset).toString() : val;
       } else {
         label = yAxisOffset ? yAxisOffset.toString() : '0';
       }
