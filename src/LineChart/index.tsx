@@ -386,6 +386,7 @@ type Pointer = {
   hidePointer4?: boolean;
   hidePointer5?: boolean;
   strokeDashArray?: Array<number>;
+  pointerStripEnableGradient: boolean;
 };
 
 export const LineChart = (props: propTypes) => {
@@ -1867,6 +1868,7 @@ export const LineChart = (props: propTypes) => {
     hidePointer3: false,
     hidePointer4: false,
     hidePointer5: false,
+    pointerStripEnableGradient: false,
   };
   const pointerConfig = props.pointerConfig || null;
   const getPointerProps = props.getPointerProps || null;
@@ -1907,6 +1909,10 @@ export const LineChart = (props: propTypes) => {
     pointerConfig && pointerConfig.pointerStripColor
       ? pointerConfig.pointerStripColor
       : defaultPointerConfig.pointerStripColor;
+  const pointerStripEnableGradient =
+    pointerConfig && pointerConfig.pointerStripEnableGradient
+      ? pointerConfig.pointerStripEnableGradient
+      : defaultPointerConfig.pointerStripEnableGradient;  
   const pointerStripUptoDataPoint =
     pointerConfig && pointerConfig.pointerStripUptoDataPoint
       ? pointerConfig.pointerStripUptoDataPoint
@@ -2680,8 +2686,14 @@ export const LineChart = (props: propTypes) => {
                 : containerHeight - pointerStripHeight,
             }}>
             <Svg>
+              <LinearGradient id="gradient" x1="50%" y1="100%" x2="50%" y2="0%">
+                <Stop offset="0%" stopColor={pointerStripColor} stopOpacity="0" />
+                <Stop offset="11%" stopColor={pointerStripColor} stopOpacity="1" />
+                <Stop offset="89%" stopColor={pointerStripColor} stopOpacity="1" />
+                <Stop offset="100%" stopColor={pointerStripColor} stopOpacity="0" />
+              </LinearGradient>
               <Line
-                stroke={pointerStripColor}
+                stroke={pointerStripEnableGradient ? "url(#gradient)" : pointerStripColor}
                 strokeWidth={pointerStripWidth}
                 strokeDasharray={
                   pointerConfig.strokeDashArray
