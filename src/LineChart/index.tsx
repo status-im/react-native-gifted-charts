@@ -2124,7 +2124,7 @@ export const LineChart = (props: propTypes) => {
     index: number,
     label: String,
     labelTextStyle: any,
-    labelComponent: Function,
+    labelComponent?: Function,
   ) => {
     return (
       <View
@@ -2159,7 +2159,7 @@ export const LineChart = (props: propTypes) => {
     index: number,
     label: String,
     labelTextStyle: any,
-    labelComponent: Function,
+    labelComponent?: Function,
   ) => {
     // console.log('label', label);
     return (
@@ -3739,29 +3739,23 @@ export const LineChart = (props: propTypes) => {
             {stripOverPointer && renderStripAndLabel()}
           </View>
         ) : null}
-        {data.map((item: itemType, index: number) => {
+        {props.xAxisLabelTexts && props.xAxisLabelTexts.map((item: string, index: number) => {
           // console.log('item', item)
           return (
             <View key={index}>
               {isAnimated
                 ? renderAnimatedLabel(
                     index,
-                    item.label ||
-                      (props.xAxisLabelTexts && props.xAxisLabelTexts[index]
-                        ? props.xAxisLabelTexts[index]
-                        : ''),
-                    item.labelTextStyle || props.xAxisLabelTextStyle,
-                    item.labelComponent,
+                    item || '',
+                    props.xAxisLabelTextStyle,
+                    undefined,
                   )
                 : renderLabel(
-                    index,
-                    item.label ||
-                      (props.xAxisLabelTexts && props.xAxisLabelTexts[index]
-                        ? props.xAxisLabelTexts[index]
-                        : ''),
-                    item.labelTextStyle || props.xAxisLabelTextStyle,
-                    item.labelComponent,
-                  )}
+                  index,
+                  item || '',
+                  props.xAxisLabelTextStyle,
+                  undefined,
+                )}
               {/* {renderLabel(index, item.label, item.labelTextStyle)} */}
             </View>
           );
