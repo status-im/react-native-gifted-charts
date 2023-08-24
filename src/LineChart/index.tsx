@@ -2130,14 +2130,10 @@ export const LineChart = (props: propTypes) => {
       <View
         style={[
           {
-            position: 'absolute',
-            bottom: 30,
-            zIndex: 10,
-            width: spacing + labelsExtraHeight,
-            left:
+            marginLeft:
               index === 0 && initialSpacing < 10
-                ? initialSpacing + spacing * index - spacing / 2 + 8
-                : initialSpacing + spacing * index - spacing / 2,
+                ? 8
+                : 0,
             justifyContent: 'center',
           },
           rotateLabel && {transform: [{rotate: '60deg'}]},
@@ -2168,14 +2164,12 @@ export const LineChart = (props: propTypes) => {
           {
             height: rotateLabel ? 40 : 20,
             // backgroundColor: 'yellow',
-            position: 'absolute',
-            bottom: rotateLabel ? 10 : 30,
             zIndex: 10,
             width: spacing,
-            left:
+            marginLeft:
               index === 0 && initialSpacing < 10
-                ? initialSpacing + spacing * index - spacing / 2 + 8
-                : initialSpacing + spacing * index - spacing / 2,
+                ? 8
+                : 0,
             opacity: appearingOpacity,
           },
           rotateLabel && {transform: [{rotate: '60deg'}]},
@@ -3739,27 +3733,38 @@ export const LineChart = (props: propTypes) => {
             {stripOverPointer && renderStripAndLabel()}
           </View>
         ) : null}
-        {props.xAxisLabelTexts && props.xAxisLabelTexts.map((item: string, index: number) => {
-          // console.log('item', item)
-          return (
-            <View key={index}>
-              {isAnimated
-                ? renderAnimatedLabel(
-                    index,
-                    item || '',
-                    props.xAxisLabelTextStyle,
-                    undefined,
-                  )
-                : renderLabel(
-                  index,
-                  item || '',
-                  props.xAxisLabelTextStyle,
-                  undefined,
-                )}
-              {/* {renderLabel(index, item.label, item.labelTextStyle)} */}
-            </View>
-          );
-        })}
+        {props.xAxisLabelTexts && (
+          <View style={{
+            flexDirection: 'row', 
+            position: 'absolute',
+            bottom: 30,
+            zIndex: 10,
+            left: props.yAxisLabelWidth && props.yAxisLabelWidth < 0 ? props.yAxisLabelWidth * -1 : 0,
+            right: 0,
+          }}>
+            {props.xAxisLabelTexts.map((item: string, index: number) => {
+              // console.log('item', item)
+              return (
+                <View key={index}>
+                  {isAnimated
+                    ? renderAnimatedLabel(
+                        index,
+                        item || '',
+                        props.xAxisLabelTextStyle,
+                        undefined,
+                      )
+                    : renderLabel(
+                      index,
+                      item || '',
+                      props.xAxisLabelTextStyle,
+                      undefined,
+                    )}
+                  {/* {renderLabel(index, item.label, item.labelTextStyle)} */}
+                </View>
+              );
+          })}
+          </View>
+        )}
       </ScrollView>
       {pointerConfig &&
         getPointerProps &&
