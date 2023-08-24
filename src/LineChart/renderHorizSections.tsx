@@ -178,7 +178,7 @@ export const renderHorizSections = props => {
             if (hideOrigin && index === horizSections.length - 1) {
               label = '';
             }
-            return (
+            return label.length > 0 ? (
               <View
                 key={index}
                 style={[
@@ -220,7 +220,7 @@ export const renderHorizSections = props => {
                   {label}
                 </Text>
               </View>
-            );
+            ) : null;
           })
         /***********************************************************************************************/
         /***********************************************************************************************/
@@ -289,7 +289,7 @@ export const renderHorizSections = props => {
               horizSectionsBelow[horizSectionsBelow.length - 1 - index].value,
               index,
             );
-            return (
+            return label.length > 0 ? (
               <View
                 key={index}
                 style={[
@@ -331,7 +331,7 @@ export const renderHorizSections = props => {
                   {label}
                 </Text>
               </View>
-            );
+            ) : null;
           })
         /***********************************************************************************************/
         /***********************************************************************************************/
